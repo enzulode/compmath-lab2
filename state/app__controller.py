@@ -6,7 +6,7 @@ from equation.first_equation import FirstEquation
 from equation.second_equation import SecondEquation
 from equation.third_equation import ThirdEquation
 
-from ui.lab2.screens.solver_selector__screen import SolverSelectorScreen
+from ui.lab2.screens.selector__screen import SolverSelectorScreen
 from ui.lab2.screens.equation_solver__screen import EquationSolverScreen
 from ui.lab2.screens.system_solver__screen import SystemSolverScreen
 
