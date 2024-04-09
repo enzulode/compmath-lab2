@@ -119,6 +119,11 @@ class ApplicationController(CTk):
     ax = fig.add_subplot(1, 1, 1)
     ax.spines['left'].set_position('center')
     ax.spines['bottom'].set_position('center')
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
 
     space = np.arange(a, b, 0.001)
     f1 = [system.get_equation1().func_sided(f1_arg, f1_arg) for f1_arg in space]
