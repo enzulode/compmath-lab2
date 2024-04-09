@@ -6,6 +6,10 @@ from equation.first_equation import FirstEquation
 from equation.second_equation import SecondEquation
 from equation.third_equation import ThirdEquation
 
+from equation.abstraction import EquationTwo
+from equation.abstraction import SystemTwo
+from equation.first_system import FirstSystem
+
 from ui.lab2.screens.selector__screen import SolverSelectorScreen
 from ui.lab2.screens.equation_solver__screen import EquationSolverScreen
 from ui.lab2.screens.system_solver__screen import SystemSolverScreen
@@ -13,7 +17,6 @@ from ui.lab2.screens.system_solver__screen import SystemSolverScreen
 from ui.lab2.windows.dialog_window__window import DialogWindow
 
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
 import numpy as np
 
 class ApplicationController(CTk):
@@ -30,6 +33,14 @@ class ApplicationController(CTk):
       eq = E()
       self.equations[str(eq)] = eq
     self.current_equation: EquationOne = None
+
+    # Systems management stuff
+    self.system_types: List[Type] = [FirstSystem]
+    self.systems: Dict[str, SystemTwo] = {}
+    for S in self.system_types:
+      system = S()
+      self.systems[str(system)] = system
+    self.current_system: SystemTwo = None
 
     self.nonbuilt_screens: Set[Type] = set([SolverSelectorScreen, EquationSolverScreen, SystemSolverScreen])
     self.built_screens: Dict[Type, CTkFrame] = {}
@@ -57,6 +68,15 @@ class ApplicationController(CTk):
   
   def get_all_equations(self) -> Dict[str, EquationOne]:
     return self.equations
+  
+  def set_system(self, s: SystemTwo) -> None:
+    self.current_system = s
+
+  def get_system(self) -> SystemTwo:
+    return self.current_system
+  
+  def get_all_systems(self) -> Dict[str, SystemTwo]:
+    return self.systems
   
   def show_screen(self, page_type: Type) -> None:
     if (page_type in self.built_screens.keys()):
