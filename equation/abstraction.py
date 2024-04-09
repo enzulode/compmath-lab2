@@ -12,6 +12,11 @@ class EquationOne(ABC):
   def dfunc(self, x: float) -> float:
     raise Exception('Not implemented yet')
   
+  # This method represenets second function derivative
+  @abstractmethod
+  def ddfunc(self, x: float) -> float:
+    raise Exception('Not implemented yet')
+  
   # This methid is responsible for the string representation of the equation
   @abstractmethod
   def __str__(self) -> str:
