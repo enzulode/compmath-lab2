@@ -6,4 +6,4 @@ def is_float(data: str):
     return False
 
 def check_input_is_float(text, action):
-  return action != '1' or is_float(text)
+  return action != '1' or is_float(text) or text == '-'
