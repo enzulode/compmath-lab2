@@ -7,5 +7,8 @@ class FirstEquation(EquationOne):
   def dfunc(self, x: float) -> float:
     return 3 * x**2 + 4
 
+  def ddfunc(self, x: float) -> float:
+    return 6 * x
+
   def __str__(self) -> str:
     return "x^3 + 4x - 6 = 0"

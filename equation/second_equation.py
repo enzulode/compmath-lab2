@@ -8,5 +8,8 @@ class SecondEquation(EquationOne):
   def dfunc(self, x: float) -> float:
     return 3 + exp(x)
   
+  def ddfunc(self, x: float) -> float:
+    return exp(x)
+  
   def __str__(self) -> str:
     return "3x + e^x + 5 = 0"
