@@ -104,3 +104,20 @@ class ApplicationController(CTk):
       plt.scatter(xx, 0, color='red')
 
     plt.show()
+
+  def draw_graph_system(self, a: float, b: float, solution: Tuple[float, float], system: SystemTwo) -> None:
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    ax.spines['left'].set_position('center')
+    ax.spines['bottom'].set_position('center')
+
+    space = np.arange(a, b, 0.001)
+    f1 = [system.get_equation1().func_sided(f1_arg, f1_arg) for f1_arg in space]
+    ax.plot(space, f1, color='red')
+
+    f2 = [system.get_equation2().func_sided(f2_arg, f2_arg) for f2_arg in space]
+    ax.plot(f2, space, color='blue')
+
+    ax.scatter([solution[0]], [solution[1]], color='black')
+    
+    plt.show()
