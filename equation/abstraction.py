@@ -41,6 +41,11 @@ class EquationTwo(ABC):
   def dfunc_y(self, x: float, y: float) -> float:
     raise Exception('Not implemented yet')
   
+  # This method represents sided function interpretation (sided to x means eg. x = y^2 + y + 2)
+  @abstractmethod
+  def func_sided(self, x: float, y: float) -> float:
+    raise Exception('Not implemented yet')
+  
   # This methid is responsible for the string representation of the equation
   @abstractmethod
   def __str__(self) -> str:
