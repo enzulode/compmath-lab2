@@ -10,6 +10,8 @@ from ui.lab2.screens.selector__screen import SolverSelectorScreen
 from ui.lab2.screens.equation_solver__screen import EquationSolverScreen
 from ui.lab2.screens.system_solver__screen import SystemSolverScreen
 
+from ui.lab2.windows.dialog_window__window import DialogWindow
+
 class ApplicationController(CTk):
 
   def __init__(self):
@@ -59,3 +61,6 @@ class ApplicationController(CTk):
   def show_main_screen(self) -> None:
     self.show_screen(SolverSelectorScreen)
   
+  def show_dialog_window(self, title: str, message: str):
+    error_window: DialogWindow = DialogWindow(title, message)
+    error_window.mainloop()
