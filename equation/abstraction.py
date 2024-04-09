@@ -28,3 +28,28 @@ class EquationTwo(ABC):
   @abstractmethod
   def func(self, x: float, y: float) -> float:
     raise Exception('Not implemented yet')
+  
+  # This method represents function derivative by x
+  @abstractmethod
+  def dfunc_x(self, x: float, y: float) -> float:
+    raise Exception('Not implemented yet')
+  
+  # This method represenets second function derivative by x
+  @abstractmethod
+  def ddfunc_x(self, x: float, y: float) -> float:
+    raise Exception('Not implemented yet')
+  
+  # This method represents function derivative by y
+  @abstractmethod
+  def dfunc_y(self, x: float, y: float) -> float:
+    raise Exception('Not implemented yet')
+  
+  # This method represenets second function derivative by y
+  @abstractmethod
+  def ddfunc_y(self, x: float, y: float) -> float:
+    raise Exception('Not implemented yet')
+  
+  # This methid is responsible for the string representation of the equation
+  @abstractmethod
+  def __str__(self) -> str:
+    raise Exception('Not implemented yet')
