@@ -48,7 +48,7 @@ class BisectionFormComponent(CTkFrame):
 
     try:
       result: Tuple[float, int] = bisection_method(a, b, eq)
-      self.controller.draw_graph_equation(-5, 5, eq, [result[0]])
+      self.controller.draw_graph_equation(-3, 3, eq, result[0])
       self.controller.show_dialog_window('Computation results', f'x = {result[0]} in n = {result[1]} iterations')
     except Exception as e:
       self.controller.show_dialog_window('Computation errored', e)
