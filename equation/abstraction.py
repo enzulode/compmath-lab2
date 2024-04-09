@@ -64,6 +64,5 @@ class SystemTwo(ABC):
     return (first_part, second_part)
   
   # This methid is responsible for the string representation of the equation system
-  @abstractmethod
   def __str__(self) -> str:
-    raise Exception('Not implemented yet')
+    return f'\n{str(self.get_equation1)}\n{str(self.get_equation2)}\n'
