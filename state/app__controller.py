@@ -12,6 +12,10 @@ from ui.lab2.screens.system_solver__screen import SystemSolverScreen
 
 from ui.lab2.windows.dialog_window__window import DialogWindow
 
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+import numpy as np
+
 class ApplicationController(CTk):
 
   def __init__(self):
@@ -61,6 +65,21 @@ class ApplicationController(CTk):
   def show_main_screen(self) -> None:
     self.show_screen(SolverSelectorScreen)
   
-  def show_dialog_window(self, title: str, message: str):
+  def show_dialog_window(self, title: str, message: str) -> None:
     error_window: DialogWindow = DialogWindow(title, message)
     error_window.mainloop()
+  
+  def draw_graph_equation(self, a: float, b: float, eq: EquationOne, Xs: List[float] = []) -> None:
+    fig = plt.figure()
+    ax = fig.add_subplot(1, 1, 1)
+    ax.spines['left'].set_position('center')
+    ax.spines['bottom'].set_position('center')
+
+    x = np.arange(a, b, 0.001)
+    y = [eq.func(v) for v in x]
+    plt.plot(x, y)
+
+    for xx in Xs:
+      plt.scatter(xx, 0, color='red')
+
+    plt.show()
