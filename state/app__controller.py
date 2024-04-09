@@ -90,20 +90,29 @@ class ApplicationController(CTk):
     error_window: DialogWindow = DialogWindow(title, message)
     error_window.mainloop()
   
-  def draw_graph_equation(self, a: float, b: float, eq: EquationOne, Xs: List[float] = []) -> None:
+  def draw_graph_equation(self, a: float, b: float, eq: EquationOne, solution: float) -> None:
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
     ax.spines['left'].set_position('center')
     ax.spines['bottom'].set_position('center')
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
 
     x = np.arange(a, b, 0.001)
     y = [eq.func(v) for v in x]
-    plt.plot(x, y)
+    ax.plot(x, y)
 
-    for xx in Xs:
-      plt.scatter(xx, 0, color='red')
+    ax.set_xticks(np.arange(a, b, 0.5))
+    ax.set_yticks(np.arange(a, b, 0.5))
+    ax.set_xlim(a, b)
+    ax.set_ylim(a, b)
 
-    plt.show()
+    ax.scatter([solution], [0], color='red')
+
+    plt.show()  
 
   def draw_graph_system(self, a: float, b: float, solution: Tuple[float, float], system: SystemTwo) -> None:
     fig = plt.figure()
