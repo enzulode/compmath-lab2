@@ -14,6 +14,9 @@ class SystemEquation1(EquationTwo):
   def dfunc_y(self, x: float, y: float) -> float:
     return 2
   
+  def func_sided(self, x: float, y: float) -> float:
+    return 1 - 0.5 * sin(x)
+  
   def __str__(self) -> str:
     return 'sin(x) + 2y = 2'
   
@@ -26,6 +29,9 @@ class SystemEquation2(EquationTwo):
   
   def dfunc_y(self, x: float, y: float) -> float:
     return -sin(y - 1)
+  
+  def func_sided(self, x: float, y: float) -> float:
+    return 0.7 - cos(y - 1)
 
   def __str__(self) -> str:
     return 'x + cos(y - 1) = 0.7'
