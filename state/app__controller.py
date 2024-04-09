@@ -9,6 +9,7 @@ from equation.third_equation import ThirdEquation
 from equation.abstraction import EquationTwo
 from equation.abstraction import SystemTwo
 from equation.first_system import FirstSystem
+from equation.second_system import SecondSystem
 
 from ui.lab2.screens.selector__screen import SolverSelectorScreen
 from ui.lab2.screens.equation_solver__screen import EquationSolverScreen
@@ -35,7 +36,7 @@ class ApplicationController(CTk):
     self.current_equation: EquationOne = None
 
     # Systems management stuff
-    self.system_types: List[Type] = [FirstSystem]
+    self.system_types: List[Type] = [FirstSystem, SecondSystem]
     self.systems: Dict[str, SystemTwo] = {}
     for S in self.system_types:
       system = S()
