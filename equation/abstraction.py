@@ -62,3 +62,8 @@ class SystemTwo(ABC):
     first_part: Tuple[float, float] = (self.get_equation1().dfunc_x(x, y), self.get_equation1().dfunc_y(x, y))
     second_part: Tuple[float, float] = (self.get_equation2().dfunc_x(x, y), self.get_equation2().dfunc_y(x, y))
     return (first_part, second_part)
+  
+  # This methid is responsible for the string representation of the equation system
+  @abstractmethod
+  def __str__(self) -> str:
+    raise Exception('Not implemented yet')
