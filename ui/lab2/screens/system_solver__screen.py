@@ -69,6 +69,7 @@ class SystemSolverScreen(CTkFrame):
 
     try:
       result: Tuple[float, float, int] = newton_method_systems((x0, y0), system)
+      self.controller.draw_graph_system(-3, 3, (result[0], result[1]), system)
       self.controller.show_dialog_window('Computation results', f'(x, y) is ({result[0]}, {result[1]}) in n = {result[2]} iterations')
     except Exception as e:
       self.controller.show_dialog_window('Computation errored', e)
