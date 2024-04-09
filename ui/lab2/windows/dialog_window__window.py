@@ -8,6 +8,6 @@ class DialogWindow(CTk):
     self.geometry('300x200')
     self.title(window_title)
 
-    label: CTkLabel = CTkLabel(self, text=error_text, height=40)
+    label: CTkLabel = CTkLabel(self, text=error_text, height=40, wraplength=400)
     label.pack(expand=True)
     
