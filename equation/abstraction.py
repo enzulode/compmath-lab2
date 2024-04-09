@@ -65,4 +65,4 @@ class SystemTwo(ABC):
   
   # This methid is responsible for the string representation of the equation system
   def __str__(self) -> str:
-    return f'\n{str(self.get_equation1)}\n{str(self.get_equation2)}\n'
+    return f'{str(self.get_equation1())} and {str(self.get_equation2())}'
