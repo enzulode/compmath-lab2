@@ -2,21 +2,23 @@ from equation.abstraction import EquationOne
 from typing import *
 
 def bisection_method(a: float, b: float, eq: EquationOne, eps: float = 0.01) -> float:
-  x: float = (a + b) / 2
-  funcA: float
-  funcX: float
-  while (abs(eq.func(x)) > eps):
-    funcA = eq.func(a)
-    funcX = eq.func(x)
+  if (not validate__left_border_less_than_right(a, b)):
+    raise Exception('Invalid interval: left border should be less than right')
 
-    if (funcA * funcX > 0):
-      a = x
-    else:
-      b = x
-    
-    x = (a + b) / 2
+  if (not validate__single_root(a, b, eq)):
+    raise Exception('Invalid interval: the requirement about singe root in the interval was not fullfilled')
   
-  return x
+  mid = a
+  n = 0
+  while ((abs(b - a) > eps) or (abs(eq.func(mid)) > eps)):
+    n += 1
+    mid = (a + b) / 2
+    if (eq.func(mid) * eq.func(a) < 0):
+      b = mid
+    else:
+      a = mid
+  
+  return mid, n
 
 def newton_method(a: float, b: float, eq: EquationOne, eps: float = 0.01) -> float:
   if (not validate__left_border_less_than_right(a, b)):
