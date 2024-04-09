@@ -18,15 +18,27 @@ def bisection_method(a: float, b: float, eq: EquationOne, eps: float = 0.01) -> 
   
   return x
 
-def newton_method(x0: float, eq: EquationOne, eps: float = 0.01) -> float:
-  x: float = x0 - eq.func(x0) / eq.dfunc(x0)
-  x0 = x
+def newton_method(a: float, b: float, eq: EquationOne, eps: float = 0.01) -> float:
+  if (not validate__left_border_less_than_right(a, b)):
+    raise Exception('Invalid interval: left border should be less than right')
 
-  while (abs(eq.func(x)) > eps):
-    x = x0 - eq.func(x0) / eq.dfunc(x0)
-    x0 = x
+  if (not validate__single_root(a, b, eq)):
+    raise Exception('Invalid interval: the requirement about singe root in the interval was not fullfilled')
+
+  x: float
+  if (eq.func(a) * eq.ddfunc(a) > 0):
+    x = a
+  elif (eq.func(b) * eq.ddfunc(b) > 0):
+    x = b
+  else:
+    raise Exception('Calculation error. The method does not converge')
   
-  return x
+  n = 0
+  while (abs(eq.func(x)) > eps):
+    n += 1
+    x -= eq.func(x) / eq.dfunc(x)
+  
+  return x, n
 
 def basic_iterative_method(a: float, b: float, eq: EquationOne, eps: float = 0.01) -> float:
   derivative_a: float = eq.dfunc(a)
@@ -40,3 +52,11 @@ def basic_iterative_method(a: float, b: float, eq: EquationOne, eps: float = 0.0
     x += lambd * eq.func(x)
 
   return x
+
+def validate__left_border_less_than_right(a: float, b: float) -> bool:
+  return a < b
+
+def validate__single_root(a: float, b: float, eq: EquationOne) -> bool:
+  return eq.func(a) * eq.func(b) < 0
+
+
