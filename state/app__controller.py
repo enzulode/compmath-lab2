@@ -101,14 +101,14 @@ class ApplicationController(CTk):
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
 
-    x = np.arange(a, b, 0.001)
-    y = [eq.func(v) for v in x]
-    ax.plot(x, y)
-
     ax.set_xticks(np.arange(a, b, 0.5))
     ax.set_yticks(np.arange(a, b, 0.5))
     ax.set_xlim(a, b)
     ax.set_ylim(a, b)
+
+    x = np.arange(a, b, 0.001)
+    y = [eq.func(v) for v in x]
+    ax.plot(x, y)    
 
     ax.scatter([solution], [0], color='red')
 
@@ -124,6 +124,11 @@ class ApplicationController(CTk):
 
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
+
+    ax.set_xticks(np.arange(a, b, 0.5))
+    ax.set_yticks(np.arange(a, b, 0.5))
+    ax.set_xlim(a, b)
+    ax.set_ylim(a, b)
 
     space = np.arange(a, b, 0.001)
     f1 = [system.get_equation1().func_sided(f1_arg, f1_arg) for f1_arg in space]
