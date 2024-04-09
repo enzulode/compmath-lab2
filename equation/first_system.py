@@ -1,31 +1,43 @@
 from typing import *
-from equation.abstraction import EquationTwo
-
 from math import *
 
+from equation.abstraction import EquationTwo
+from equation.abstraction import SystemTwo
 
-class FirstSystemEquation1(EquationTwo):
+class SystemEquation1(EquationTwo):
   def func(self, x: float, y: float) -> float:
-    return tan(x*y + 0.1) - x*x
+    return sin(x + 1) - y - 1.2
   
   def dfunc_x(self, x: float, y: float) -> float:
-    return (1 / cos(x * y + 0.1) ** 2) * y - 2 * x
+    return cos(x + 1)
   
   def dfunc_y(self, x: float, y: float) -> float:
-    return (1 / cos(x * y + 0.1) ** 2) * x
+    return -1
   
   def __str__(self) -> str:
-    return 'tg(xy + 0.1) = x^2'
+    return 'sin(x + 1) - y = 1.2'
   
-class FirstSystemEquation2(EquationTwo):
+class SystemEquation2(EquationTwo):
   def func(self, x: float, y: float) -> float:
-    return x ** 2 + 2 * y ** 2 - 1
+    return 2 * x + cos(y) - 2
   
   def dfunc_x(self, x: float, y: float) -> float:
-    return 2 * x
+    return 2
   
   def dfunc_y(self, x: float, y: float) -> float:
-    return 4 * y
+    return -sin(y)
 
   def __str__(self) -> str:
-    return 'x^2 + 2y^2 = 1'
+    return '2x + cos(y) = 2'
+  
+class FirstSystem(SystemTwo):
+  def __init__(self) -> None:
+    super().__init__()
+    self.__eq1: EquationTwo = SystemEquation1()
+    self.__eq2: EquationTwo = SystemEquation2()
+
+  def get_equation1(self) -> EquationTwo:
+    return self.__eq1
+  
+  def get_equation2(self) -> EquationTwo:
+    return self.__eq2
