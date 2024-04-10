@@ -30,17 +30,17 @@ class IterativeFormComponent(CTkFrame):
     eq: EquationOne = self.controller.get_equation()
 
     if (eq == None):
-      self.controller.show_dialog_window('Computation errored', 'Equation is not selected')
+      self.controller.show_error('Equation is not selected')
       return
 
     # validate that interval params are not empty
     a_str: str = self.input_a.get()
     if (len(a_str) < 1):
-      self.controller.show_dialog_window('Computation errored', 'Left interval border cannot be empty')
+      self.controller.show_error('Left interval border cannot be empty')
       return
     b_str: str = self.input_b.get()
     if (len(b_str) < 1):
-      self.controller.show_dialog_window('Computation errored', 'Right interval border cannot be empty')
+      self.controller.show_error('Right interval border cannot be empty')
       return
 
     a: float = float(a_str)
@@ -48,7 +48,6 @@ class IterativeFormComponent(CTkFrame):
 
     try:
       result: Tuple[float, int] = basic_iterative_method(a, b, eq)
-      self.controller.draw_graph_equation(-5, 5, eq, result[0])
-      self.controller.show_dialog_window('Computation results', f'x = {result[0]} in n = {result[1]} iterations')
+      self.controller.show_equation_results(-3, 3, eq, result)
     except Exception as e:
-      self.controller.show_dialog_window('Computation errored', e)
+      self.controller.show_error(e)

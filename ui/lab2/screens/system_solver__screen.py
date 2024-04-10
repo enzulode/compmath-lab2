@@ -51,17 +51,17 @@ class SystemSolverScreen(CTkFrame):
     system: SystemTwo = self.controller.get_system()
 
     if (system == None):
-      self.controller.show_dialog_window('Computation errored', 'System is not selected')
+      self.controller.show_error('System is not selected')
       return
 
     # validate that initial approximation params are not empty
     x0_str: str = self.input_x0.get()
     if (len(x0_str) < 1):
-      self.controller.show_dialog_window('Computation errored', 'x0 approximation cannot be empty')
+      self.controller.show_error('x0 approximation cannot be empty')
       return
     y0_str: str = self.input_y0.get()
     if (len(y0_str) < 1):
-      self.controller.show_dialog_window('Computation errored', 'y0 approximation cannot be empty')
+      self.controller.show_error('y0 approximation cannot be empty')
       return
 
     x0: float = float(x0_str)
@@ -69,7 +69,6 @@ class SystemSolverScreen(CTkFrame):
 
     try:
       result: Tuple[float, float, int] = newton_method_systems((x0, y0), system)
-      self.controller.draw_graph_system(-3, 3, (result[0], result[1]), system)
-      self.controller.show_dialog_window('Computation results', f'(x, y) is ({result[0]}, {result[1]}) in n = {result[2]} iterations')
+      self.controller.show_system_results(-3, 3, system, result)
     except Exception as e:
-      self.controller.show_dialog_window('Computation errored', e)
+      self.controller.show_error(e)
