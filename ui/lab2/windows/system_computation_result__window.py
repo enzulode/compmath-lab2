@@ -12,7 +12,7 @@ class SystemComputationResultWindow(CTkToplevel):
   def __init__(self, message: str, interval: Tuple[float, float], s: SystemTwo, results: Tuple[float, float, int], *args, **kwargs) -> None:
     super().__init__(*args, **kwargs)
 
-    self.title = 'Computation result'
+    self.title('Computation result')
     self.geometry('600x600')
 
     # window message
