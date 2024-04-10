@@ -15,10 +15,12 @@ from ui.lab2.screens.selector__screen import SolverSelectorScreen
 from ui.lab2.screens.equation_solver__screen import EquationSolverScreen
 from ui.lab2.screens.system_solver__screen import SystemSolverScreen
 
-from ui.lab2.windows.dialog_window__window import DialogWindow
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+from ui.lab2.windows.equation_computation_result__window import EquationComputationResultWindow
+from ui.lab2.windows.system_computation_result__window import SystemComputationResultWindow
+from ui.lab2.windows.error__window import ErrorWindow
 
 class ApplicationController(CTk):
 
@@ -61,6 +63,8 @@ class ApplicationController(CTk):
 
     self.show_screen(SolverSelectorScreen)
 
+    self.top_level_window: CTkToplevel = None
+
   def set_equation(self, eq: EquationOne) -> None:
     self.current_equation = eq
 
@@ -86,57 +90,22 @@ class ApplicationController(CTk):
   def show_main_screen(self) -> None:
     self.show_screen(SolverSelectorScreen)
   
-  def show_dialog_window(self, title: str, message: str) -> None:
-    error_window: DialogWindow = DialogWindow(title, message)
-    error_window.mainloop()
+  def show_equation_results(self, a: float, b: float, eq: EquationOne, results: Tuple[float, int]) -> None:
+    message: str = f'x = {results[0]} in n = {results[1]} iterations'
+    if (self.top_level_window is None or not self.top_level_window.winfo_exists()):
+      self.top_level_window = EquationComputationResultWindow(message, (a, b), eq, results)
+    else:
+      self.top_level_window.focus()
+
+  def show_system_results(self, a: float, b: float, s: SystemTwo, results: Tuple[float, float, int]) -> None:
+    message: str = f'(x, y) is ({results[0]}, {results[1]}) in n = {results[2]} iterations'
+    if (self.top_level_window is None or not self.top_level_window.winfo_exists()):
+      self.top_level_window = SystemComputationResultWindow(message, (a, b), s, results)
+    else:
+      self.top_level_window.focus()
   
-  def draw_graph_equation(self, a: float, b: float, eq: EquationOne, solution: float) -> None:
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    ax.spines['left'].set_position('center')
-    ax.spines['bottom'].set_position('center')
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-
-    ax.xaxis.set_ticks_position('bottom')
-    ax.yaxis.set_ticks_position('left')
-
-    ax.set_xticks(np.arange(a, b, 0.5))
-    ax.set_yticks(np.arange(a, b, 0.5))
-    ax.set_xlim(a, b)
-    ax.set_ylim(a, b)
-
-    x = np.arange(a, b, 0.001)
-    y = [eq.func(v) for v in x]
-    ax.plot(x, y)    
-
-    ax.scatter([solution], [0], color='red')
-
-    plt.show()  
-
-  def draw_graph_system(self, a: float, b: float, solution: Tuple[float, float], system: SystemTwo) -> None:
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1, 1)
-    ax.spines['left'].set_position('center')
-    ax.spines['bottom'].set_position('center')
-    ax.spines['right'].set_color('none')
-    ax.spines['top'].set_color('none')
-
-    ax.xaxis.set_ticks_position('bottom')
-    ax.yaxis.set_ticks_position('left')
-
-    ax.set_xticks(np.arange(a, b, 0.5))
-    ax.set_yticks(np.arange(a, b, 0.5))
-    ax.set_xlim(a, b)
-    ax.set_ylim(a, b)
-
-    space = np.arange(a, b, 0.001)
-    f1 = [system.get_equation1().func_sided(f1_arg, f1_arg) for f1_arg in space]
-    ax.plot(space, f1, color='red')
-
-    f2 = [system.get_equation2().func_sided(f2_arg, f2_arg) for f2_arg in space]
-    ax.plot(f2, space, color='blue')
-
-    ax.scatter([solution[0]], [solution[1]], color='black')
-    
-    plt.show()
+  def show_error(self, message: str):
+    if (self.top_level_window is None or not self.top_level_window.winfo_exists()):
+      self.top_level_window = ErrorWindow(message)
+    else:
+      self.top_level_window.focus()
